@@ -1,4 +1,4 @@
-addDefaultCharset utf-8
+addDefaultCharset utf-8-general-ci
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

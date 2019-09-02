@@ -42,7 +42,7 @@
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="/portfolio/">Portfolio</a>
+										<li class="nav-item"><a class="nav-link" href="/portfoliopost/">Portfolio</a>
 										<li class="nav-item"><a class="nav-link" href="portfolio-details.html">Portfolio Details</a>
 										<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 									</ul>
@@ -50,7 +50,7 @@
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+										<li class="nav-item"><a class="nav-link" href="/blogpost/">Blog</a></li>
 										<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 									</ul>
 								</li> 

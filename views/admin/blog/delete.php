@@ -1,10 +1,8 @@
 <?php require_once ROOT . '/views/admin/layout/admin_header.php'; ?>
     <div class="delete_admin">
-        <p class="name_delete">Вы действительно хотите удалить пользователя : 
-            <?= ucfirst($user['first_name']) . ' ' .  ucfirst($user['last_name']); ?> ?
-        </p>
+        <p class="name_delete">Вы действительно хотите удалить запись блога?</p>
         <form action="#" method="post">
-            <a href="/admin/user/" class="back_button">Назад</a>
+            <a href="/admin/blog/" class="back_button">Назад</a>
             <input type="submit" name="submit" class="delete_button" value="Удалить">   
         </form>
     </div>

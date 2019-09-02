@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav justify-content-center">
                         <li class="nav-item active"><a class="nav-link" href="/">На сайт</a></li> 
-                        <li class="nav-item"><a class="nav-link" href="/about/">Пользователи</a></li> 
+                        <li class="nav-item"><a class="nav-link" href="/admin/user/">Пользователи</a></li> 
                         <li class="nav-item"><a class="nav-link" href="/service/">Блог</a>
                         <li class="nav-item"><a class="nav-link" href="/portfolio/">Портфолио</a>
                         <li class="nav-item"><a class="nav-link" href="portfolio-details.html">Категории</a>

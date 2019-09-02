@@ -15,9 +15,9 @@ class Router
         $userURI = $this->getURI();
         
         foreach ($this->routes as $uriPattern => $innerPath)
-        {
+        {                 
             if (preg_match("`$uriPattern$`", $userURI))
-            {
+            {             
                 $innerRoute = preg_replace("`$uriPattern$`", $innerPath, $userURI);
 
                 $segmentRoute = explode('/', $innerRoute);
@@ -29,12 +29,13 @@ class Router
                 $params = $segmentRoute;
 
                 $controllerClass = ROOT . '/controllers/' . $controllerName . '.php';
-                
-                if (!$controllerClass) {
-                    $controllerClass = ROOT . '/controllers/admin/' . $controllerName . '.php'; 
-                }
+                  
                 if (file_exists($controllerClass)) {
 
+                    include_once ($controllerClass);
+                } else {
+
+                    $controllerClass = ROOT . '/controllers/admin/' . $controllerName . '.php';
                     include_once ($controllerClass);
                 }
 

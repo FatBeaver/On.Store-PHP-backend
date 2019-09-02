@@ -44,11 +44,177 @@ Table of Content:
 @import url("https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700|Raleway:300,400,500,600,700");
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
+.admin_main_page {
+  max-width:1200px;
+  width:80%;
+  margin: 20px auto;
+}
 .list {
   list-style: none;
   margin: 0px;
   padding: 0px;
 }
+/*------ADMIN PANEL-------*/
+.admin_main_page {
+  text-align: center;
+}
+.action_list {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.action_list a {
+  list-style: none;
+  margin: 5px auto;
+  padding-bottom: 3px;
+  font-size: 20px;
+  transition: 0.5s ease-in-out;
+  
+}
+.action_list a:hover {
+  color:rgb(11, 168, 11);
+  transform: translateX(32px);
+  transition: 0.6s ease-in-out;
+  font-size: 24px;
+  text-shadow:-15px 14px 2px  rgb(72, 175, 4);
+}
+/*------------User-- */
+.admin_main_userpage {
+  max-width: 1200px;
+  width: 100%;
+  margin: 20px auto;
+}
+.admin_user_description {
+  margin-bottom: 30px;
+}
+.all-user-table {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0px auto;
+  margin-top: 30px !important;
+}
+.user_create {
+  padding: 15px 20px;
+  border:1px solid gray;
+  border-radius: 6px;
+  background: rgb(3, 160, 3);
+  color:white;
+  font-size: 26px;
+}
+.all-user-table thead {
+  border:1px solid rgb(65, 65, 65);
+  color :white;
+  background: rgb(65, 65, 65);
+  padding: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.all-user-table .all_post_portfolio  td:nth-child(12) {
+  color: rgb(7, 160, 7) !important;
+}
+.all-user-table .all_post_portfolio  td:nth-child(13) {
+  color:rgb(235, 4, 4) !important;
+}
+
+.all-user-table .all_post_user td:nth-child(9) {
+  color: rgb(7, 160, 7);
+}
+.all-user-table .all_post_user td:nth-child(10) {
+  color:rgb(235, 4, 4);
+} 
+
+.create-user_form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width:100%;
+  margin: 0 auto;
+}
+.create_user_wrapper {
+  max-width:1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.create-user_form input {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+}
+.create-user_form input[name="submit"] {
+  width:200px;
+  border-radius: 6px;
+  background: rgb(6, 124, 6);
+  margin-top: 10px !important;
+  color:rgb(211, 206, 206);
+  font-size: 24px;
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+  padding-left: 45px !important;
+}
+
+.delete_admin {
+  max-width: 1100px;
+  width:100%;
+  margin: 15px auto;
+  margin-bottom: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.delete_admin .name_delete {
+  font-size: 30px;
+  margin-bottom: 35px;
+  color: rgb(17, 17, 17);
+}
+.delete_admin .delete_button {
+  background: rgb(189, 0, 0);
+  font-size: 20px;
+  color:white;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 5px 11px;
+}
+.delete_admin .back_button {
+  background: rgb(1, 95, 1);
+  color:white;
+  font-size: 22px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 25px;
+}
+#out_comment {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 13px;
+  margin-right:20px;
+  background: rgb(16, 16, 168);
+}
+#out_comment:hover {
+  cursor: pointer;
+  background: rgb(12, 12, 126);
+  color:rgb(4, 250, 4);
+}
+.category_td {
+  font-size: 8px !important;
+}
+.blog_check {
+  display:flex;
+  width: 200px;
+  align-items: flex-start;
+  margin-bottom: 7px;;
+}
+/*--------/ ADMIN PANEL ---------*/
 
 a {
   text-decoration: none;
