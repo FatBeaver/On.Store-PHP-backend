@@ -16,7 +16,7 @@ class Blog
                 . "FROM blog_post AS b_p LEFT JOIN user AS u ON b_p.user_id = u.id";
         
         $result = $db->query($sql);
-    
+        $blogPosts = null;
         for ($i = 1; $row = $result->fetch(); $i++)
         {
             $blogPosts[$i]['id'] = $row['id'];

@@ -22,7 +22,7 @@
             <td>Удалить</td>
         </thead>
         <tbody>
-            <?php foreach($posts as $post): ?>
+            <?php if (is_array($posts)) foreach($posts as $post):  ?>
                 <tr>
                     <td><?= $post['id']; ?></td>
                     <td><?= $post['title']; ?></td>
@@ -35,9 +35,14 @@
                     <td><?= $post['contacts']; ?></td>
                     <td><?= $post['date']; ?></td>
                     <td class="cetegory_td">
-                        <?php foreach($post['categories'] as $category): ?>
-                            <?=  $category . '<br/>'?>
-                        <?php endforeach; ?>
+
+                        <?php if (!empty($post['categories']) ): ?>
+
+                            <?php foreach($post['categories'] as $category): ?>
+                                <?=  $category . '<br/>'?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
                     </td>
                     <td><a href="/admin/portfolio/update/<?= $post['id']; ?>">
                         <img src="/template/img/admin/update.svg" alt="update" width="45px">

@@ -40,8 +40,7 @@ class User
 
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
-        return $result->execute() ? true : false;
-        
+        return $result->execute() ? true : false;    
     }
 
     public static function adminUpdateUser($id, $userOptions)

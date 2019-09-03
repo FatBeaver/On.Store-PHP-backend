@@ -1,8 +1,8 @@
 <?php require_once ROOT . '/views/admin/layout/admin_header.php'; ?>
     <div class="delete_admin">
-        <p class="name_delete">Вы действительно хотите удалить запись портфолио?</p>
+        <p class="name_delete">Вы действительно хотите удалить категорию?</p>
         <form action="#" method="post">
-            <a href="/admin/portfolio/" class="back_button">Назад</a>
+            <a href="/admin/category/" class="back_button">Назад</a>
             <input type="submit" name="submit" class="delete_button" value="Удалить">   
         </form>
     </div>

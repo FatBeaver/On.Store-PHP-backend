@@ -12,10 +12,11 @@ class Portfolio
     {
         $db = Db::getConnection();
         $sql = "SELECT * FROM portfolio_post";
-        
         $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $post = null;
         for ($i = 0; $row = $result->fetch(); $i++)
-        {
+        {   
             $post[$i]['id'] = $row['id'];
             $post[$i]['title'] = $row['title'];
             $post[$i]['description'] = $row['description'];
@@ -28,7 +29,7 @@ class Portfolio
             $post[$i]['categories'] = Portfolio::getCategoriesForPortfolioPost($row['id']);
             $post[$i]['image'] = $row['image'];
         }
-
+        
         return $post;
     }
 
@@ -93,6 +94,21 @@ class Portfolio
         
         Portfolio::geleteForeignKeysOfPortfolioToCategotyTable($id);
         Portfolio::addForeignKeysOfPortfolioToCategoryTable($blogPost['categories'], $id);
+    }
+
+    public static function adminDeletePortfolioPostById($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = "DELETE FROM portfolio_post WHERE id = :id";
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+
+        $sql = "DELETE FROM portfolio_to_category WHERE portfolio_id = :id";
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
     }
     // =========== ADMIN SECTION END ============
 
@@ -170,16 +186,16 @@ class Portfolio
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
 
-        if ($result->execute() === true) { 
-            for ($i = 0; $row = $result->fetch(); $i++)
-            {
-                $categories[$i] = $row['title'];
-            }       
-            return $categories;
-        } 
-
-        return null;
+        for ($i = 0; $row = $result->fetch(); $i++)
+        {   
+            if (empty($row['title'])) {
+                return $categories[$i] = 'Без категории';
+            }
+            $categories[$i] = $row['title'];
+        }     
+        return $categories;  
     }
 
 }

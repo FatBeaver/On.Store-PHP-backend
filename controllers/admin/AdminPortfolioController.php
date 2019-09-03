@@ -61,6 +61,13 @@ class AdminPortfolioController
 
     public function actionDelete($id)
     {
+        if (isset($_POST['submit'])) 
+        {
+            Portfolio::adminDeletePortfolioPostById($id);
+            
+            header('Location: /admin/portfolio/');
+        }
+
 
         require_once ROOT . '/views/admin/portfolio/delete.php';
         return true;
