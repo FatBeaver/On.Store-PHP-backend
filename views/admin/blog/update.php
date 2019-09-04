@@ -15,6 +15,11 @@
             <input type="text" name="content" id="pw" 
                 value="<?= !empty($post['post']['content']) ? $post['post']['content'] : ''; ?>"/>
 
+            <p>Текущее изображение</p>
+            <img src="<?= FileImages::getImage('blog', $post['post']['image']) ?>" alt="update_blog_img" width="500px">
+            <label for="image">Изменить изображение :</label>
+            <input type="file" accept="image/*" id="image" name="image">
+
             <label for="category">Выберите категории</label>
             
             <?php $i = 0; 

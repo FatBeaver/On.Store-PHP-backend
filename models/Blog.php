@@ -12,7 +12,7 @@ class Blog
         $db = Db::getConnection();
 
         $sql = "SELECT b_p.id, b_p.title, b_p.description, b_p.content, "
-                . "b_p.viewed, b_p.date, u.first_name, u.last_name, u.id AS user_id "
+                . "b_p.viewed, b_p.date, b_p.image, u.first_name, u.last_name, u.id AS user_id "
                 . "FROM blog_post AS b_p LEFT JOIN user AS u ON b_p.user_id = u.id";
         
         $result = $db->query($sql);
@@ -25,12 +25,13 @@ class Blog
             $blogPosts[$i]['content'] = $row['content'];
             $blogPosts[$i]['viewed'] = $row['viewed'];
             $blogPosts[$i]['date'] = $row['date'];
+            $blogPosts[$i]['image'] = $row['image'];
             $blogPosts[$i]['first_name'] = $row['first_name'];
             $blogPosts[$i]['last_name'] = $row['last_name'];
             $blogPosts[$i]['user_id'] = $row['user_id'];
             $blogPosts[$i]['category'] = Blog::getCategoriesForBlogPost($row['id']);
         }
-        
+
         return $blogPosts;
     }
 
@@ -103,8 +104,7 @@ class Blog
         $result->bindParam(':content', $post['content'], PDO::PARAM_STR);
         $result->bindParam(':user_id', $post['user_id'], PDO::PARAM_INT);
         $result->bindValue(':viewed', 0, PDO::PARAM_INT);
-       // $result->bindValue(':date', date('NOW()'), PDO::PARAM_STR);
-        $result->bindParam(':image', $post['image']);
+        $result->bindValue(':image', $post['image'], PDO::PARAM_STR);
         
         if ($result->execute()) {
             $id = $db->lastInsertId();
@@ -134,6 +134,7 @@ class Blog
     public static function adminDeleteBlogPostById($id)
     {
         $db = Db::getConnection();
+        FileImages::deleteImageByID($id, 'blog_post', 'blog');
 
         $sql = "DELETE FROM blog_post WHERE id = :id";
         $result = $db->prepare($sql);
@@ -176,6 +177,8 @@ class Blog
     public static function adminUpdateBlogPost($post, $id)
     {
         $db = Db::getConnection();
+        FileImages::deleteImageByID($id, 'blog_post', 'blog');
+
         $sql = "UPDATE blog_post
                 SET 
                 title = :title, 
@@ -210,7 +213,6 @@ class Blog
 
     public static function addForeignKeysOfBlogToCategoryTable($categories, $id)
     {
-        
         $db = Db::getConnection();
         foreach ($categories as $category) 
         {   

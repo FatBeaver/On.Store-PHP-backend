@@ -10,7 +10,7 @@
             <td>id</td>
             <td>Заголовок</td>
             <td>Кр.Описание</td>
-            <td>Содержимое</td>
+            <td>Изображение</td>
             <td>Автор</td>
             <td>Просмотренно</td>
             <td>Опубликованно</td>  
@@ -19,12 +19,12 @@
             <td>Удалить</td>
         </thead>
         <tbody>
-            <?php if (is_array($posts)) foreach( $posts as $post): ?>
+            <?php if (is_array($posts)) foreach($posts as $post): ?>
                 <tr>
                     <td><?= $post['id']; ?></td>
                     <td><?= $post['title']; ?></td>
                     <td><?= $post['description']; ?></td>
-                    <td><p><?= substr(wordwrap($post['content'], 35, true), 0, 50); ?></p></td>
+                    <td><img src="<?= FileImages::getImage('blog', $post['image']); ?>" width="100px" alt="blog_img"></td>
                     <td><?= ucfirst($post['first_name']) . ' ' . ucfirst($post['last_name']); ?></td>
                     <td><?= $post['viewed']; ?></td>
                     <td><?= $post['date']; ?></td>

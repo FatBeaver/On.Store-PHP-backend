@@ -20,7 +20,7 @@ class AdminBlogController
             $post['user_id'] = 1;
             $post['description'] = $_POST['min_desc'];
             $post['categories'] = $_POST['categories'];
-            $post['image'] = '1';
+            $post['image'] = FileImages::addImages('blog');
            
             Blog::adminCreateBlogPost($post);
 
@@ -56,7 +56,7 @@ class AdminBlogController
             $blogPost['content'] = $_POST['content'];
             $blogPost['user_id'] = 1;
             $blogPost['categories'] = $_POST['categories'];
-            $blogPost['image'] = '1';
+            $blogPost['image'] = FileImages::addImages('blog');
 
             Blog::adminUpdateBlogPost($blogPost, $id);
             

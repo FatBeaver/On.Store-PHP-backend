@@ -9,6 +9,9 @@
         <input type="text" name="min_desc" id="ln"/>
         <label for="pw">Содержимое</label>
         <input type="text" name="content" id="pw">
+        
+        <label for="image">Добавьте изображение:</label>
+        <input type="file" accept="image/*" name="image" id="image">
 
         <label for="category">Выберите категории</label>
         <?php foreach($categories as $category): ?>

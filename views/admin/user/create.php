@@ -18,7 +18,7 @@
         <label for="em">Введите email:</label>
         <input type="text" name="email" id="em"/>
         <label for="img">Загрузите изображение:</label>
-        <input type="file" name="image" id="img"/>
+        <input type="file" name="image" id="img" accept="image/*"/>
         <label for="w_p">Должность</label>
         <input type="text" name="work_postition" id="w_p">
         <label for="status">Статус</label>

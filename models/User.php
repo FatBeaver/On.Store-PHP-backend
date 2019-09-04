@@ -26,7 +26,7 @@ class User
         $result->bindParam(':password', $user['password'], PDO::PARAM_STR);
         $result->bindParam(':email', $user['email'], PDO::PARAM_STR);
         $result->bindParam(':work_position', $user['work_position'], PDO::PARAM_STR);
-        $result->bindParam(':image', $user['image'], PDO::PARAM_STR);
+        $result->bindValue(':image', FileImages::addImages('user'), PDO::PARAM_STR);
         $result->bindParam(':status', $user['status'], PDO::PARAM_INT);
         $result->execute();
 
@@ -35,24 +35,29 @@ class User
     public static function adminDeleteUser($id)
     {
         $db = Db::getConnection();
+        // ==== Delete image for directory
+        FileImages::deleteImageByID($id, 'user', 'user');
 
+        // ==== Delete user
         $sql = "DELETE FROM user WHERE id = :id";
-
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         return $result->execute() ? true : false;    
     }
 
+
     public static function adminUpdateUser($id, $userOptions)
     {
         $db = Db::getConnection();
+
+        FileImages::deleteImageByID($id, 'user', 'user');
 
         $sql = "UPDATE user SET " 
                 . "first_name = :first_name, "
                 . "last_name = :last_name, "
                 . "password = :password, "
                 . "email = :email, "
-                . "work_position = :work_postion, "
+                . "work_position = :work_position, "
                 . "image = :image, "
                 . "contacts = :contacts, "
                 . "status = :status WHERE id = :id";
@@ -126,5 +131,6 @@ class User
         $result->setFetchMode(PDO::FETCH_ASSOC);
         return $result->fetch();
     }
+
 
 }

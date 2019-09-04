@@ -26,7 +26,7 @@
                     <td><?php echo $user['last_name']; ?></td>
                     <td><?php echo $user['email']; ?></td>
                     <td><?php echo $user['work_position']; ?></td>
-                    <td><?php echo $user['image']; ?></td>
+                    <td><img src="<?= FileImages::getImage('user', $user['image']); ?>" width="100px" alt="user_img"></td>
                     <td><?php echo $user['contacts']; ?></td>
                     <td><?php echo $user['status']; ?></td>
                     <td><a href="/admin/user/update/<?= $user['id']; ?>">

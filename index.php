@@ -5,6 +5,8 @@
 ini_set('dispaly_errors', 1);
 error_reporting(E_ALL);
 
+setlocale(LC_ALL, '');
+
 //---------SESSION
 session_start();
 

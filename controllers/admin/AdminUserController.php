@@ -15,25 +15,24 @@ class AdminUserController
         $errors = false;
         if (isset($_POST['submit']))
         {
-            $newUser['first_name'] = $_POST['first_name'];
-            $newUser['last_name'] = $_POST['last_name'];
-            $newUser['password'] = $_POST['password'];
-            $newUser['email'] = $_POST['email'];
-            $newUser['image'] = $_FILES['image']['name'];
-            $newUser['work_position'] = $_POST['work_postition'];
-            $newUser['status'] = $_POST['status'];
+            $updateUser['first_name'] = $_POST['first_name'];
+            $updateUser['last_name'] = $_POST['last_name'];
+            $updateUser['password'] = $_POST['password'];
+            $updateUser['email'] = $_POST['email'];
+            $updateUser['work_position'] = $_POST['work_postition'];
+            $updateUser['status'] = $_POST['status'];
 
-            if (!User::checkEmail($newUser['email'])) {
+            if (!User::checkEmail($updateUser['email'])) {
                 $errors[] = ' - Введите правильный Email!';
             }
 
-            if (!User::checkPassword($newUser['password'])) {
+            if (!User::checkPassword($updateUser['password'])) {
                 $errors[] = ' - Некорректный пароль!<br/>
                   (Пароль должен быть не короче 6ти символов, разрешены латинские символы и цифры)';
             }
 
             if (!$errors) {
-                User::adminCreateUser($newUser);
+                User::adminCreateUser($updateUser);
 
                 header('Location: /admin/user/');
             } 
@@ -50,25 +49,26 @@ class AdminUserController
         $errors = false;
         if (isset($_POST['submit']))
         {
-            $newUser['first_name'] = $_POST['first_name'];
-            $newUser['last_name'] = $_POST['last_name'];
-            $newUser['password'] = $_POST['password'];
-            $newUser['email'] = $_POST['email'];
-            $newUser['image'] = $_FILES['image']['name'];
-            $newUser['work_position'] = $_POST['work_postition'];
-            $newUser['status'] = $_POST['status'];
-
-            if (!User::checkEmail($newUser['email'])) {
+            $updateUser['first_name'] = $_POST['first_name'];
+            $updateUser['last_name'] = $_POST['last_name'];
+            $updateUser['password'] = $_POST['password'];
+            $updateUser['image'] = FileImages::addImages('user');
+            $updateUser['email'] = $_POST['email'];
+            $updateUser['contacts'] = '1';
+            $updateUser['work_position'] = $_POST['work_postition'];
+            $updateUser['status'] = $_POST['status'];
+           
+            if (!User::checkEmail($updateUser['email'])) {
                 $errors[] = ' - Введите правильный Email!';
             }
 
-            if (!User::checkPassword($newUser['password'])) {
+            if (!User::checkPassword($updateUser['password'])) {
                 $errors[] = ' - Некорректный пароль!<br/>
                   (Пароль должен быть не короче 6ти символов, разрешены латинские символы и цифры)';
             }
 
             if (!$errors) {
-                User::adminUpdateUser($id, $newUser);
+                User::adminUpdateUser($id, $updateUser);
 
                 header('Location: /admin/user/');
             } 
