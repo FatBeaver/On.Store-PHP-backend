@@ -39,6 +39,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <ul class="pagination">
+            <?= $pagination->getNavPageList(); ?>
+        </ul>
 </section>
 
 <?php require_once ROOT . '/views/admin/layout/admin_footer.php'; ?>

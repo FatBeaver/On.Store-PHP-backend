@@ -1,7 +1,7 @@
 <?php 
 
 class User 
-{   
+{      
     // ============= START ADMIN ACTION ==========================
     public static function checkLogged()
     {
@@ -75,11 +75,11 @@ class User
         $result->execute();
     }
 
-    public static function adminGetAllUsers()
+    public static function adminGetAllUsers($limit = 10, $offset = 0)
     {
         $db = Db::getConnection();
 
-        $result = $db->query("SELECT * FROM user");
+        $result = $db->query("SELECT * FROM user LIMIT $limit OFFSET $offset");
 
         for ($i = 0; $row = $result->fetch(); $i++)
         {
@@ -132,5 +132,14 @@ class User
         return $result->fetch();
     }
 
+    public static function getTotalCountUser()
+    {
+        $db = Db::getConnection();
+
+        $sql = "SELECT COUNT(*) AS count FROM user";
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        return $result->fetch();
+    }
 
 }

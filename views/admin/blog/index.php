@@ -43,6 +43,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    
 </section>
 
 <?php require_once ROOT . '/views/admin/layout/admin_footer.php'; ?>

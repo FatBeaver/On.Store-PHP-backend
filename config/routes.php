@@ -11,6 +11,7 @@ return [
     //Aдмин панель
     'admin' => 'admin/index',
     // Aдмин панель управления пользователями
+    'admin/user/page-([0-9]+)' => 'adminUser/index/$1',
     'admin/user' => 'adminUser/index',
     'admin/user/create' => 'adminUser/create',
     'admin/user/update/([0-9]+)' => 'adminUser/update/$1',

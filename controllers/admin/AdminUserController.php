@@ -2,9 +2,15 @@
 
 class AdminUserController
 {
-    public function actionIndex()
-    {
-        $users = User::adminGetAllUsers();
+    public function actionIndex($page = 1)
+    {   
+        $limit = 3;
+        $offset = ($page - 1) * $limit;
+        $total = User::getTotalCountUser();
+        
+        $pagination = new Pagination($total['count'], $limit, $page, 'page-');
+        
+        $users = User::adminGetAllUsers($limit, $offset);
         
         require_once ROOT . '/views/admin/user/index.php';
         return true;
