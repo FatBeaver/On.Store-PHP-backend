@@ -19,9 +19,9 @@ class FileImages
         {
             move_uploaded_file($_FILES['image']['tmp_name'], $uploadFilePath);
             return (string) $fileName;
-        }
+        } 
 
-        exit('Размер файла превышен!'); 
+        return false;
     }
 
     public static function deleteImages($localPath, $fileName)
@@ -46,7 +46,10 @@ class FileImages
         $result->execute();
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $fileName = $result->fetch();
-        FileImages::deleteImages($localPath, $fileName['image']);
+        if (!empty($_FILES['image']['name'])) {
+            FileImages::deleteImages($localPath, $fileName['image']);
+        }
+        
     }
     
 }

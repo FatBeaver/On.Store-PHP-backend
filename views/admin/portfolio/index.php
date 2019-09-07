@@ -27,11 +27,11 @@
                     <td><?= $post['id']; ?></td>
                     <td><?= $post['title']; ?></td>
                     <td><?= $post['description']; ?></td>
-                    <td><p><?= substr(wordwrap($post['content'], 30, true), 0, 50); ?></p></td>
+                    <td><p><?= mb_substr(wordwrap($post['content'], 30, true), 0, 50); ?></p></td>
                     <td><?= $post['rating']; ?></td>
                     <td><?= ucfirst($post['client']) ?></td>
                     <td><?= $post['website']; ?></td>
-                    <td><?= $post['image']; ?></td>
+                    <td><img src="<?= FileImages::getImage('portfolio', $post['image']); ?>" width="100px" alt="p_img"></td>
                     <td><?= $post['contacts']; ?></td>
                     <td><?= $post['date']; ?></td>
                     <td class="cetegory_td">

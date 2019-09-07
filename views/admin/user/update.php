@@ -28,7 +28,7 @@
         <p>Текущее изображение</p>
         <img src="<?= FileImages::getImage('user', $user['image']); ?>" width="500px" alt="user_img">
         <label for="img">Изменить изображение:</label>
-        <input type="file" name="image" id="img" accept="image/*"/> <!-- Добавить метод загрузки изображения -->
+        <input type="file" name="image" id="img" accept="image/*" /> <!-- Добавить метод загрузки изображения -->
 
         <label for="w_p">Измените должность</label>
         <input type="text" name="work_postition" id="w_p" 

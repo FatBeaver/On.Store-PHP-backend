@@ -52,7 +52,7 @@ class Pagination
 
     <?php if ($this->currentPage != 1): ?>    
         <li class="page-item">
-            <a href="/admin/user/page-<?= 1 ?>/" class="page-link" aria-label="Previous">
+            <a href="/<?= $this->URIindex ?>/page-<?= 1 ?>/" class="page-link" aria-label="Previous">
                 <span aria-hidden="true">
                     <span class="lnr lnr-chevron-left"></span>
                 </span>
@@ -61,29 +61,29 @@ class Pagination
     <?php endif; ?>   
 
     <?php if ($this->currentPage - 2 > 0): ?>
-        <li class="page-item"><a href="/admin/user/page-<?= $this->currentPage - 2 ?>/" class="page-link">
+        <li class="page-item"><a href="/<?= $this->URIindex ?>/page-<?= $this->currentPage - 2 ?>/" class="page-link">
         <?= $this->currentPage - 2 ?></a></li>
     <?php endif; ?>    
     <?php if ($this->currentPage - 1 > 0): ?>   
-        <li class="page-item "><a href="/admin/user/page-<?= $this->currentPage - 1 ?>/" class="page-link">
+        <li class="page-item "><a href="/<?= $this->URIindex ?>/page-<?= $this->currentPage - 1 ?>/" class="page-link">
         <?= $this->currentPage - 1 ?></a></li>
     <?php endif; ?>   
 
-    <li class="page-item active"><a href="/admin/user/page-<?= $this->currentPage ?>/" class="page-link">
+    <li class="page-item active"><a href="/<?= $this->URIindex ?>/page-<?= $this->currentPage ?>/" class="page-link">
     <?= $this->currentPage; ?></a></li>
      
     <?php if ($this->currentPage + 1 < $this->countPage + 1): ?>   
-        <li class="page-item"><a href="/admin/user/page-<?= $this->currentPage + 1?>/" class="page-link">
+        <li class="page-item"><a href="/<?= $this->URIindex ?>/page-<?= $this->currentPage + 1?>/" class="page-link">
         <?= $this->currentPage + 1 ?></a></li>
     <?php endif; ?>  
     <?php if ($this->currentPage + 2 < $this->countPage + 1): ?> 
-        <li class="page-item"><a href="/admin/user/page-<?= $this->currentPage + 2?>/" class="page-link">
+        <li class="page-item"><a href="/<?= $this->URIindex ?>/page-<?= $this->currentPage + 2?>/" class="page-link">
         <?= $this->currentPage + 2 ?></a></li>
     <?php endif; ?>  
 
     <?php if ($this->currentPage != $this->countPage): ?>   
         <li class="page-item">
-            <a href="/admin/user/page-<?= $this->countPage ?>/" class="page-link" aria-label="Next">
+            <a href="/<?= $this->URIindex ?>/page-<?= $this->countPage ?>/" class="page-link" aria-label="Next">
                 <span aria-hidden="true">
                     <span class="lnr lnr-chevron-right"></span>
                 </span>

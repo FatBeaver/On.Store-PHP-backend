@@ -8,8 +8,7 @@ class AdminUserController
         $offset = ($page - 1) * $limit;
         $total = User::getTotalCountUser();
         
-        $pagination = new Pagination($total['count'], $limit, $page, 'page-');
-        
+        $pagination = new Pagination($total['count'], $limit, $page, 'admin/user');
         $users = User::adminGetAllUsers($limit, $offset);
         
         require_once ROOT . '/views/admin/user/index.php';
@@ -58,7 +57,7 @@ class AdminUserController
             $updateUser['first_name'] = $_POST['first_name'];
             $updateUser['last_name'] = $_POST['last_name'];
             $updateUser['password'] = $_POST['password'];
-            $updateUser['image'] = FileImages::addImages('user');
+            $updateUser['image'] = !empty($_FILES['image']['name']) ? FileImages::addImages('user') : $user['image'];
             $updateUser['email'] = $_POST['email'];
             $updateUser['contacts'] = '1';
             $updateUser['work_position'] = $_POST['work_postition'];

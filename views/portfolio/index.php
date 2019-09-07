@@ -18,85 +18,24 @@
         
         <!--================Project Area =================-->
         <section class="project_area">
+
         	<div class="row m0">
+			<?php foreach($portfolioPosts as $post): ?>
         		<div class="col-lg-4 col-md-6 p0">
         			<div class="project_item">
-        				<img src="/template/img/project/project-1.jpg" alt="">
+        				<img src="<?= FileImages::getImage('portfolio', $post['image']) ?>" height="300vh" alt="p_img">
         				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
+        					<h4><?= $post['title'] ?></h4>
         					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
+        					<?php foreach($post['categories'] as $category): ?>
+								<a href="#"><?= $category ?></a>
+							<?php endforeach; ?>
         					</div>
-        					<a class="main_btn" href="#">View More</a>
+        					<a class="main_btn" href="/portfoliopost/view/<?= $post['id'] ?>/">Посмотреть подробнее</a>
         				</div>
         			</div>
-        		</div>
-        		<div class="col-lg-4 col-md-6 p0">
-        			<div class="project_item">
-        				<img src="/template/img/project/project-2.jpg" alt="">
-        				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
-        					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
-        					</div>
-        					<a class="main_btn" href="#">View More</a>
-        				</div>
-        			</div>
-        		</div>
-        		<div class="col-lg-4 col-md-6 p0">
-        			<div class="project_item">
-        				<img src="/template/img/project/project-3.jpg" alt="">
-        				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
-        					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
-        					</div>
-        					<a class="main_btn" href="#">View More</a>
-        				</div>
-        			</div>
-        		</div>
-        		<div class="col-lg-4 col-md-6 p0">
-        			<div class="project_item">
-        				<img src="/template/img/project/project-4.jpg" alt="">
-        				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
-        					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
-        					</div>
-        					<a class="main_btn" href="#">View More</a>
-        				</div>
-        			</div>
-        		</div>
-        		<div class="col-lg-4 col-md-6 p0">
-        			<div class="project_item">
-        				<img src="/template/img/project/project-5.jpg" alt="">
-        				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
-        					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
-        					</div>
-        					<a class="main_btn" href="#">View More</a>
-        				</div>
-        			</div>
-        		</div>
-        		<div class="col-lg-4 col-md-6 p0">
-        			<div class="project_item">
-        				<img src="/template/img/project/project-6.jpg" alt="">
-        				<div class="hover_text">
-        					<h4>Exotic <br />Mangrove</h4>
-        					<div class="cat">
-        						<a href="#">Lifestyle</a>
-        						<a href="#">People</a>
-        					</div>
-        					<a class="main_btn" href="#">View More</a>
-        				</div>
-        			</div>
-        		</div>
+				</div>
+			<?php endforeach; ?>
         	</div>
         </section>
         <!--================End Project Area =================-->

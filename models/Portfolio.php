@@ -11,7 +11,7 @@ class Portfolio
     public static function adminGetAllPortfolioPost()
     {
         $db = Db::getConnection();
-        $sql = "SELECT * FROM portfolio_post";
+        $sql = "SELECT * FROM portfolio_post ORDER BY id DESC";
         $result = $db->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $post = null;
@@ -75,6 +75,8 @@ class Portfolio
     public static function adminUpdatePortfolioPost($blogPost, $id)
     {  
         $db = Db::getConnection();
+        FileImages::deleteImageByID($id, 'portfolio_post', 'portfolio');
+
         $sql = "UPDATE portfolio_post 
                 SET 
                 title = :title, description = :description, content = :content, 
@@ -99,7 +101,8 @@ class Portfolio
     public static function adminDeletePortfolioPostById($id)
     {
         $db = Db::getConnection();
-
+        FileImages::deleteImageByID($id, 'portfolio_post', 'portfolio');
+        
         $sql = "DELETE FROM portfolio_post WHERE id = :id";
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
@@ -196,6 +199,33 @@ class Portfolio
             $categories[$i] = $row['title'];
         }     
         return $categories;  
+    }
+
+
+    public static function getPortfolioPostsForHomePage()
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT * FROM portfolio_post ORDER BY id DESC LIMIT 6";
+
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $post = null;
+        for ($i = 0; $row = $result->fetch(); $i++)
+        {   
+            $post[$i]['id'] = $row['id'];
+            $post[$i]['title'] = $row['title'];
+            $post[$i]['description'] = $row['description'];
+            $post[$i]['content'] = $row['content'];
+            $post[$i]['rating'] = $row['rating'];
+            $post[$i]['client'] = $row['client'];
+            $post[$i]['website'] = $row['website'];
+            $post[$i]['date'] = $row['date'];
+            $post[$i]['contacts'] = $row['contacts'];
+            $post[$i]['categories'] = Portfolio::getCategoriesForPortfolioPost($row['id']);
+            $post[$i]['image'] = $row['image'];
+        }
+        
+        return $post;
     }
 
 }

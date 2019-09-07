@@ -23,7 +23,7 @@ class AdminPortfolioController
             $post['contacts'] = $_POST['contacts'];
             $post['description'] = $_POST['description'];
             $post['categories'] = $_POST['categories'];
-            $post['image'] = '1';
+            $post['image'] = FileImages::addImages('portfolio');
            
             @Portfolio::adminCreatePortfolioPost($post);
             header('Location: /admin/portfolio/');
@@ -47,7 +47,7 @@ class AdminPortfolioController
             $blogPost['rating'] = $_POST['rating'];
             $blogPost['web_site'] = $_POST['web_site'];
             $blogPost['categories'] = $_POST['categories'];
-            $blogPost['image'] = '1';
+            $blogPost['image'] = FileImages::addImages('portfolio');
             $blogPost['contacts'] = $_POST['contacts'];
 
             Portfolio::adminUpdatePortfolioPost($blogPost, $id);

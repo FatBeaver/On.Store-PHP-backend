@@ -19,7 +19,7 @@
             <td>Удалить</td>
         </thead>
         <tbody>
-            <?php foreach($users as $user): ?>
+            <?php if (is_array($users)) foreach($users as $user): ?>
                 <tr>
                     <td><?php echo $user['id']; ?></td>
                     <td><?php echo $user['first_name']; ?></td>
@@ -40,8 +40,10 @@
         </tbody>
     </table>
     <ul class="pagination">
-            <?= $pagination->getNavPageList(); ?>
-        </ul>
+    <?php if ($total > $limit): ?> 
+        <?= $pagination->getNavPageList(); ?>
+    <?php endif; ?>
+    </ul>
 </section>
 
 <?php require_once ROOT . '/views/admin/layout/admin_footer.php'; ?>

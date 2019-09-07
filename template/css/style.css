@@ -4174,7 +4174,9 @@ h6 {
 .single-footer-widget input:focus {
   outline: none;
 }
-
+.blog_area {
+  margin-top: 50px !important;
+}
 .single-footer-widget .sub-btn {
   background: #a7cb00;
   color: #fff;

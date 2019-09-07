@@ -22,7 +22,7 @@
         <input type="text" name="web_site" id="website">
 
         <label for="images">Добавьте изображение</label>
-        <input type="file" name="images" id="images">
+        <input type="file" name="image" id="image">
 
         <label for="contacts">Добавьте ссылки на контакты через запятую</label>
         <input type="text" name="contacts" id="contacts">

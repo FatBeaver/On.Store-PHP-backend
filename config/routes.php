@@ -3,8 +3,11 @@
 return [
     // Навигация по сайту
     'contact' => 'contact/index',
+    'blogpost/page-([0-9]+)' => 'plogpost/index/$1',
     'blogpost' => 'blog/index',
+    'blogpost/view/([0-9]+)' => 'blog/view/$1',
     'portfoliopost' => 'portfolio/index',
+    'portfoliopost/view/([0-9]+)' => 'portfolio/view/$1',
     'service' => 'service/index',
     'about' => 'about/index', 
 

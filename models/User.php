@@ -79,8 +79,8 @@ class User
     {
         $db = Db::getConnection();
 
-        $result = $db->query("SELECT * FROM user LIMIT $limit OFFSET $offset");
-
+        $result = $db->query("SELECT * FROM user ORDER BY id DESC LIMIT $limit OFFSET $offset");
+        $users = null;
         for ($i = 0; $row = $result->fetch(); $i++)
         {
             $users[$i]['id'] = $row['id'];
@@ -141,5 +141,26 @@ class User
         $result->setFetchMode(PDO::FETCH_ASSOC);
         return $result->fetch();
     }
+    
+    public static function getWorksUser()
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT id, first_name, last_name, email, image, work_position FROM  
+                user  
+                WHERE status = 1";
 
+        $result = $db->query($sql);
+        for($i = 0; $row = $result->fetch(); $i++)
+        {
+            $worksUser[$i]['id'] = $row['id'];
+            $worksUser[$i]['first_name'] = $row['first_name'];
+            $worksUser[$i]['last_name'] = $row['last_name'];
+            $worksUser[$i]['email'] = $row['email'];
+            $worksUser[$i]['image'] = $row['image'];
+            $worksUser[$i]['work_position'] = $row['work_position'];
+
+        }
+
+        return $worksUser;
+    }
 }
