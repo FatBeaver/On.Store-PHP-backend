@@ -86,7 +86,7 @@
                                         <div class="blog_details">
                                             <a href="single-blog.html"><h2><?= $post['title'] ?></h2></a>
                                             <p><?= $post['description'] ?></p>
-                                            <a href="single-blog.html" class="blog_btn">Посмотреть подробнее</a>
+                                            <a href="/blogpost/views/<?= $post['id'] ?>" class="blog_btn">Посмотреть подробнее</a>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                         <?php endforeach; ?>  
                             <nav class="blog-pagination justify-content-center d-flex">
 		                        <ul class="pagination">
-
+                                   
                                     <?= $pagination->getNavPageList(); ?>
                                     
 		                        </ul>
@@ -102,17 +102,22 @@
                             
                         </div>
                     </div>
+
                     <div class="col-lg-4">
                         <div class="blog_right_sidebar">
+
                             <aside class="single_sidebar_widget search_widget">
+                                <form action="/blogpost/search/" method="POST" id="search_form">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search Posts">
+                                    <input type="text" class="form-control" placeholder="Search Posts" name="query">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                                    </span>
+                                        <button class="btn btn-default" name="search_form" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                                    </span>   
                                 </div><!-- /input-group -->
+                                </form>
                                 <div class="br"></div>
                             </aside>
+
                             <aside class="single_sidebar_widget author_widget">
                                 <img class="author_img rounded-circle" src="/template/img/blog/author.png" alt="">
                                 <h4>Charlie Barber</h4>
@@ -126,38 +131,22 @@
                                 <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p>
                                 <div class="br"></div>
                             </aside>
+
                             <aside class="single_sidebar_widget popular_post_widget">
+
                                 <h3 class="widget_title">Popular Posts</h3>
+                                <?php foreach($popularPosts as $post): ?>
                                 <div class="media post_item">
-                                    <img src="/template/img/blog/popular-post/post1.jpg" alt="post">
+                                    <img src="<?= FileImages::getImage('blog', $post['image']) ?>" width="110px" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>Space The Final Frontier</h3></a>
-                                        <p>02 Hours ago</p>
+                                        <a href="/blogpost/views/<?= $post['id'] ?>"><h3><?= $post['title'] ?></h3></a>
+                                        <p><?= $post['date']  ?></p>
                                     </div>
                                 </div>
-                                <div class="media post_item">
-                                    <img src="/template/img/blog/popular-post/post2.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>The Amazing Hubble</h3></a>
-                                        <p>02 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="/template/img/blog/popular-post/post3.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>Astronomy Or Astrology</h3></a>
-                                        <p>03 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="/template/img/blog/popular-post/post4.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>Asteroids telescope</h3></a>
-                                        <p>01 Hours ago</p>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                                 <div class="br"></div>
                             </aside>
+
                             <aside class="single_sidebar_widget ads_widget">
                                 <a href="#"><img class="img-fluid" src="/template/img/blog/add.jpg" alt=""></a>
                                 <div class="br"></div>
@@ -165,48 +154,14 @@
                             <aside class="single_sidebar_widget post_category_widget">
                                 <h4 class="widget_title">Post Catgories</h4>
                                 <ul class="list cat-list">
+                                <?php foreach($categoryCountPosts as $category): ?>    
                                     <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Technology</p>
-                                            <p>37</p>
+                                        <a href="/blogpost/category-<?= $category['id'] ?>" class="d-flex justify-content-between">
+                                            <p><?= $category['title'] ?></p>
+                                            <p> <?= $category['post_count']  ?> </p>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Lifestyle</p>
-                                            <p>24</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Fashion</p>
-                                            <p>59</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Art</p>
-                                            <p>29</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Food</p>
-                                            <p>15</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Architecture</p>
-                                            <p>09</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Adventure</p>
-                                            <p>44</p>
-                                        </a>
-                                    </li>															
+                                <?php endforeach; ?>      												
                                 </ul>
                                 <div class="br"></div>
                             </aside>

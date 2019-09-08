@@ -124,7 +124,7 @@
 			<?php foreach ($portfolioPosts as $post): ?>	
         		<div class="col-lg-4 col-md-6 p0">
         			<div class="project_item">
-        				<img src="<?= FileImages::getImage('portfolio', $post['image'])?>" alt="post_portfolio">
+        				<img src="<?= FileImages::getImage('portfolio', $post['image'])?>" height="320vh" alt="post_portfolio">
         				<div class="hover_text">
         					<h4><?= $post['title'] ?></h4>
         					<div class="cat">

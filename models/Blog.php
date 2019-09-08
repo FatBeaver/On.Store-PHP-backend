@@ -161,11 +161,19 @@ class Blog
         $post = $result->fetch();
         $categories = Blog::getCategoriesForBlogPost($id);
         
+        $sql = "SELECT first_name, last_name FROM user WHERE id = :id";
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $post['user_id'], PDO::PARAM_STR);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+
+        $post['name'] = $result->fetch(0); 
+
         $postData = [
             'post' => $post,
             'categories' => $categories
         ];
-    
+        
         return $postData;
     }
 
@@ -289,4 +297,146 @@ class Blog
         return $blogPosts;
     }
 
+    public static function getPopularPosts()
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT id, title, date, image FROM blog_post ORDER BY viewed DESC LIMIT 4";
+
+        $dateNow = new DateTime('now');
+        
+
+        $result = $db->query($sql);
+        for($i = 0; $row = $result->fetch(); $i++)
+        {   
+            $dateCreate = new DateTime($row['date']);
+            $dateInterval = $dateCreate->diff($dateNow);
+            if ($dateInterval->h == 0 ) {
+                $dateInterval = 'Менее часа назад';
+            } else if ($dateInterval->h == 1) {
+                $dateInterval = "Час назад";
+            } elseif ($dateInterval->h == 2 
+            || $dateInterval->h == 3 || $dateInterval->h == 4 ) {
+                $dateInterval = $dateInterval->h . " часа назад";
+            } else {
+                $dateInterval = $dateInterval->h . " часов назад";
+            }
+            $posts[$i]['id'] = $row['id'];
+            $posts[$i]['title'] = $row['title'];
+            $posts[$i]['date'] = $dateInterval;
+            $posts[$i]['image'] = $row['image'];
+            
+        }
+
+        return $posts;
+    }
+
+    public static function getCategoriesWithCountPosts()
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT blog_category.id, blog_category.title, COUNT(blog_to_category.blog_id) AS post_count 
+                FROM blog_category
+                INNER JOIN blog_to_category ON blog_category.id = blog_to_category.category_id 
+                GROUP BY blog_category.title, blog_category.id";
+
+        $result = $db->query($sql);
+        for($i = 0; $row = $result->fetch(); $i++)
+        {
+            $countsPostsForCategory[$i]['id'] = $row['id'];
+            $countsPostsForCategory[$i]['title'] = $row['title'];
+            $countsPostsForCategory[$i]['post_count'] = $row['post_count'];
+        }
+
+        return $countsPostsForCategory;
+    }
+
+
+    public static function getTotalBlogPostForCategory($id)
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT COUNT(*) AS post_count FROM blog_to_category WHERE category_id = :id";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+        return $result->fetch();
+    }
+
+    public static function getPostsForCetegoryById($id, $limit, $offset)
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT blog_post.*, user.first_name, user.last_name
+                FROM user
+                JOIN blog_post ON blog_post.user_id = user.id
+                JOIN blog_to_category ON blog_to_category.blog_id = blog_post.id
+                WHERE blog_to_category.category_id = :id LIMIT :limit OFFSET :offset";
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $result->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $result->execute();
+
+        $blogPosts = null;
+        for ($i = 1; $row = $result->fetch(); $i++)
+        {
+            $blogPosts[$i]['id'] = $row['id'];
+            $blogPosts[$i]['title'] = $row['title'];
+            $blogPosts[$i]['description'] = $row['description'];
+            $blogPosts[$i]['content'] = $row['content'];
+            $blogPosts[$i]['viewed'] = $row['viewed'];
+            $blogPosts[$i]['date'] = $row['date'];
+            $blogPosts[$i]['image'] = $row['image'];
+            $blogPosts[$i]['first_name'] = $row['first_name'];
+            $blogPosts[$i]['last_name'] = $row['last_name'];
+            $blogPosts[$i]['user_id'] = $row['user_id'];
+            $blogPosts[$i]['category'] = Blog::getCategoriesForBlogPost($row['id']);
+        }    
+        return $blogPosts;
+    }
+
+
+    public static function getPostForBlogPageByQuerySearch($limit, $offset, $query)
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT b_p.*, u.first_name, u.last_name, u.id AS user_id 
+                FROM blog_post AS b_p LEFT JOIN user AS u ON b_p.user_id = u.id 
+                WHERE b_p.title LIKE '%$query%' OR b_p.description LIKE '%$query%' OR b_p.content LIKE '%$query%' 
+                ORDER BY id DESC LIMIT $limit OFFSET $offset ";
+               
+        
+        $result = $db->query($sql);
+
+        $blogPosts = null;
+        for ($i = 1; $row = $result->fetch(); $i++)
+        {
+            $blogPosts[$i]['id'] = $row['id'];
+            $blogPosts[$i]['title'] = $row['title'];
+            $blogPosts[$i]['description'] = $row['description'];
+            $blogPosts[$i]['content'] = $row['content'];
+            $blogPosts[$i]['viewed'] = $row['viewed'];
+            $blogPosts[$i]['date'] = $row['date'];
+            $blogPosts[$i]['image'] = $row['image'];
+            $blogPosts[$i]['first_name'] = $row['first_name'];
+            $blogPosts[$i]['last_name'] = $row['last_name'];
+            $blogPosts[$i]['user_id'] = $row['user_id'];
+            $blogPosts[$i]['category'] = Blog::getCategoriesForBlogPost($row['id']);
+        }
+       
+        return $blogPosts;
+    }
+
+
+    public static function getTotalBlogPostByQuerySearch(string $query)
+    {   
+        $query = trim($query);
+        $db = Db::getConnection();
+        $sql = "SELECT COUNT(*) AS post_count 
+                FROM blog_post
+                WHERE title LIKE '%$query%' OR description LIKE '%$query%' OR content LIKE '%$query%' ";
+
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+    
+        return $result->fetch();
+    }
 }

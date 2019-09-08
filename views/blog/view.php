@@ -1,5 +1,5 @@
 <?php require_once ROOT . '/views/layouts/header.php';?>
-     
+        
         <!--================Home Banner Area =================-->
         <section class="banner_area">
             <div class="banner_inner d-flex align-items-center">
@@ -24,21 +24,20 @@
                         <div class="single-post row">
                             <div class="col-lg-12">
                                 <div class="feature-img">
-                                    <img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
+                                    <img class="img-fluid" src="<?= FileImages::getImage('blog', $post['post']['image'])?>" alt="">
                                 </div>									
                             </div>
                             <div class="col-lg-3  col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                        <a href="#">Food,</a>
-                                        <a class="active" href="#">Technology,</a>
-                                        <a href="#">Politics,</a>
-                                        <a href="#">Lifestyle</a>
+                                        <?php foreach($post['categories'] as $category): ?>
+                                        <a href="#">- <?= $category ?> <br/></a>
+                                        <?php endforeach; ?>
                                     </div>
                                     <ul class="blog_meta list">
-                                        <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
+                                        <li><a href="#"><?= $post['post']['name']['first_name'] . ' ' . $post['post']['name']['last_name'] ?><i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#"><?= $post['post']['date'] ?><i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#"><?= $post['post']['viewed'] ?><i class="lnr lnr-eye"></i></a></li>
                                         <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
                                     </ul>
                                     <ul class="social-links">
@@ -50,38 +49,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 col-md-9 blog_details">
-                                <h2>Astronomy Binoculars A Great Alternative</h2>
+                                <h2><?= $post['post']['title'] ?></h2>
                                 <p class="excert">
-                                    MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.
-                                </p>
-                                <p>
-                                    Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                                </p>
-                                <p>
-                                    Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
+                                <?= $post['post']['content'] ?>
                                 </p>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="quotes">
-                                    MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.										
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
-                                    </div>
-                                    <div class="col-6">
-                                        <img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
-                                    </div>	
-                                    <div class="col-lg-12 mt-25">
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                        </p>
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                        </p>											
-                                    </div>									
-                                </div>
-                            </div>
+                        
                         </div>
                         <div class="navigation-area">
                             <div class="row">
@@ -230,6 +203,7 @@
                             </form>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4">
                         <div class="blog_right_sidebar">
                             <aside class="single_sidebar_widget search_widget">
@@ -242,7 +216,7 @@
                                 <div class="br"></div>
                             </aside>
                             <aside class="single_sidebar_widget author_widget">
-                                <img class="author_img rounded-circle" src="img/blog/author.png" alt="">
+                                <img class="author_img rounded-circle" src="/template/img/blog/author.png" alt="">
                                 <h4>Charlie Barber</h4>
                                 <p>Senior blog writer</p>
                                 <div class="social_icon">
@@ -256,34 +230,15 @@
                             </aside>
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title">Popular Posts</h3>
+                                <?php foreach($popularPosts as $post): ?>
                                 <div class="media post_item">
-                                    <img src="img/blog/popular-post/post1.jpg" alt="post">
+                                    <img src="<?= FileImages::getImage('blog', $post['image']) ?>" width="110px" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>Space The Final Frontier</h3></a>
-                                        <p>02 Hours ago</p>
+                                        <a href="blog-details.html"><h3><?= $post['title'] ?></h3></a>
+                                        <p><?= $post['date']  ?></p>
                                     </div>
                                 </div>
-                                <div class="media post_item">
-                                    <img src="img/blog/popular-post/post2.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>The Amazing Hubble</h3></a>
-                                        <p>02 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="img/blog/popular-post/post3.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>Astronomy Or Astrology</h3></a>
-                                        <p>03 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="img/blog/popular-post/post4.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog-details.html"><h3>Asteroids telescope</h3></a>
-                                        <p>01 Hours ago</p>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                                 <div class="br"></div>
                             </aside>
                             <aside class="single_sidebar_widget ads_widget">
@@ -293,48 +248,14 @@
                             <aside class="single_sidebar_widget post_category_widget">
                                 <h4 class="widget_title">Post Catgories</h4>
                                 <ul class="list cat-list">
+                                <?php foreach($categoryCountPosts as $category): ?>    
                                     <li>
                                         <a href="#" class="d-flex justify-content-between">
-                                            <p>Technology</p>
-                                            <p>37</p>
+                                            <p><?= $category['title'] ?></p>
+                                            <p> <?= $category['post_count']  ?> </p>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Lifestyle</p>
-                                            <p>24</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Fashion</p>
-                                            <p>59</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Art</p>
-                                            <p>29</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Food</p>
-                                            <p>15</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Architecture</p>
-                                            <p>09</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Adventure</p>
-                                            <p>44</p>
-                                        </a>
-                                    </li>															
+                                <?php endforeach; ?> 												
                                 </ul>
                                 <div class="br"></div>
                             </aside>
@@ -356,28 +277,12 @@
                                 <p class="text-bottom">You can unsubscribe at any time</p>	
                                 <div class="br"></div>							
                             </aside>
-                            <aside class="single-sidebar-widget tag_cloud_widget">
-                                <h4 class="widget_title">Tag Clouds</h4>
-                                <ul class="list">
-                                    <li><a href="#">Technology</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Architecture</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Food</a></li>
-                                    <li><a href="#">Technology</a></li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                    <li><a href="#">Art</a></li>
-                                    <li><a href="#">Adventure</a></li>
-                                    <li><a href="#">Food</a></li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                    <li><a href="#">Adventure</a></li>
-                                </ul>
-                            </aside>
+                    
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!--================Blog Area =================-->
-        <?php require_once ROOT . '/views/layouts/footer.php'; ?>   
+        <?php require_once ROOT . '/views/layouts/footer.php'; ?>         
        
