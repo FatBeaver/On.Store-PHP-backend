@@ -1,9 +1,10 @@
 <?php 
 
-class AdminCategoryController
+class AdminCategoryController extends AdminBase
 {
     public function actionIndex()
-    {
+    {   
+        self::checkAdmin();
         $categories = Category::getAllCategory();
 
         require_once ROOT . '/views/admin/category_blog/index.php';
@@ -11,7 +12,8 @@ class AdminCategoryController
     }
 
     public function actionCreate()
-    {
+    {   
+        self::checkAdmin();
         if (isset($_POST['submit'])) 
         {
             $category['title'] = $_POST['title'];
@@ -27,6 +29,7 @@ class AdminCategoryController
 
     public function actionUpdate($id)
     {   
+        self::checkAdmin();
         $category = Category::getCategoryById($id);
 
         if (isset($_POST['submit']))
@@ -43,7 +46,8 @@ class AdminCategoryController
     }
 
     public function actionDelete($id)
-    {
+    {   
+        self::checkAdmin();
         if (isset($_POST['submit']))
         {
             Category::deleteCategoryById($id);

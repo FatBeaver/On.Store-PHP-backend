@@ -298,6 +298,28 @@ button:focus {
   margin-bottom: 75px;
 }
 
+.registration {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important; 
+}
+
+.registration div {
+  margin-bottom: 20px !important;
+}
+
+.registration div input {
+  border-radius: 5px !important;
+  border: 1px solid rgb(95, 95, 95) !important;
+}
+
+.entrance {
+  margin-left: 15% !important;
+}
+.nav {
+  margin-left: 20% !important;
+}
+
 .main_title h2 {
   font-family: "Raleway", sans-serif;
   font-size: 36px;

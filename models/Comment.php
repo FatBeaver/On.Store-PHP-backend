@@ -12,7 +12,7 @@ class Comment
         $result = $db->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $comments = [];
-        for ($i=0; $row = $result->fetch(); $i++) 
+        for ($i = 0; $row = $result->fetch(); $i++) 
         {
             $comments[$i]['id'] = $row['id'];
             $comments[$i]['text'] = $row['text'];
@@ -65,5 +65,21 @@ class Comment
         $result->execute();
         $result->setFetchMode(PDO::FETCH_ASSOC);
         return $result->fetch();
+    }
+
+    public static function addCommentToBlogPost($comment, $first_name, $last_name, $blog_id)
+    {
+        $db = Db::getConnection();
+        $sql = "INSERT INTO comment 
+                (text, blog_id, first_name, last_name) 
+                VALUES 
+                (:text, :blog_id, :first_name, :last_name)";
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':text', $comment, PDO::PARAM_STR);
+        $result->bindParam(':blog_id', $blog_id, PDO::PARAM_STR);
+        $result->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $result->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $result->execute();
     }
 }

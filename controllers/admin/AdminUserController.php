@@ -1,9 +1,10 @@
 <?php 
 
-class AdminUserController
+class AdminUserController extends AdminBase
 {
     public function actionIndex($page = 1)
-    {   
+    {      
+        self::checkAdmin();
         $limit = 3;
         $offset = ($page - 1) * $limit;
         $total = User::getTotalCountUser();
@@ -17,6 +18,7 @@ class AdminUserController
 
     public function actionCreate()
     {   
+        self::checkAdmin();
         $errors = false;
         if (isset($_POST['submit']))
         {
@@ -49,6 +51,7 @@ class AdminUserController
 
     public function actionUpdate($id)
     {   
+        self::checkAdmin();
         $user = User::getUserById($id);
         
         $errors = false;
@@ -85,6 +88,7 @@ class AdminUserController
 
     public function actionDelete($id)
     {   
+        self::checkAdmin();
         $user = User::getUserById($id);
 
         if (isset($_POST['submit'])) {

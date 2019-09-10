@@ -1,9 +1,10 @@
 <?php 
 
-class AdminBlogController 
+class AdminBlogController extends AdminBase
 {
     public function actionIndex()
-    {
+    {   
+        self::checkAdmin();
         $posts = Blog::adminGetAllBlogPosts();
 
         require_once ROOT . '/views/admin/blog/index.php';
@@ -11,7 +12,8 @@ class AdminBlogController
     }
 
     public function actionCreate()
-    {
+    {   
+        self::checkAdmin();
         $categories = Blog::getAllCategories();
 
         if (isset($_POST['submit'])) {
@@ -32,7 +34,8 @@ class AdminBlogController
     }
 
     public function actionDelete($id)
-    {
+    {   
+        self::checkAdmin();
         if (isset($_POST['submit'])) 
         {
             Blog::adminDeleteBlogPostById($id);
@@ -45,7 +48,8 @@ class AdminBlogController
     }
 
     public function actionUpdate($id)
-    {
+    {   
+        self::checkAdmin();
         $post = Blog::getOneBlogPostById($id);
         $categories = Blog::getAllCategories();
             

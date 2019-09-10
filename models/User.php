@@ -5,7 +5,7 @@ class User
     // ============= START ADMIN ACTION ==========================
     public static function checkLogged()
     {
-       return isset($_SESSION['user']) ? $_SESSION['user'] : header('Location: /user/login/'); 
+       return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false; 
     }
 
     public static function adminCreateUser($user)
@@ -101,9 +101,10 @@ class User
     // =============== START USER FORM VALIDATE ==============
     public static function checkPassword($password) 
     {   
-        $pattern = '/([0-9]{6,24})/i';
-        $pattern2 = '/([А-я])/i';
-        if (preg_match($pattern, $password) && !preg_match($pattern2, $password)) {
+        $pattern = '/([0-9]+)/i';
+        $pattern2 = '/([^А-я]+)/i';
+        if (preg_match($pattern, $password) && preg_match($pattern2, $password) 
+            && strlen($password) >= 6) {
             return true;
         }
         return false;
@@ -116,6 +117,21 @@ class User
             return true;
         }
         return false;
+    }
+
+    public static function checkEmailExists($email)
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT * FROM user WHERE email = :email";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        if ($result->fetch()){
+            return false;
+        }
+        return true;
     }
     // =============== / END USER FORM VALIDATE ======
 

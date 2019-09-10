@@ -7,11 +7,11 @@ class AdminBase
         $userID = User::checkLogged();
 
         $user = User::getUserById($userID);
-
-        if ($user['admin'] == 'admin') {
+        
+        if ($user['status'] == 1) {
             return true;
         }
-
+        
         die('Доступ запрещен');
     }
 }

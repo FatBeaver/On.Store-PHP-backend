@@ -1,8 +1,8 @@
 <?php 
 
 return [
-    // Навигация по сайту
-    'contact' => 'contact/index',
+    // НАВИГАЦИЯ ПО САЙТУ
+    // ==== Блог 
     'blogpost/page-([0-9]+)' => 'blog/index/$1',
     'blogpost/category-([0-9]+)/page-([0-9]+)' => 'blog/categoryPosts/$1/$2',
     'blogpost/category-([0-9]+)' => 'blog/categoryPosts/$1',
@@ -10,34 +10,43 @@ return [
     'blogpost/search' => 'blog/search',
     'blogpost' => 'blog/index',
     'blogpost/views/([0-9]+)' => 'blog/view/$1',
+    'blogpost/addcomment/([0-9]+)' => 'blog/addComment/$1',
+    // ==== Портфолио
     'portfoliopost' => 'portfolio/index',
     'portfoliopost/view/([0-9]+)' => 'portfolio/view/$1',
+    // ==== Сервис
     'service' => 'service/index',
+    // ==== О нас
     'about' => 'about/index', 
+    // ==== Авторизация \ Регистрация
+    'registration' => 'auth/registration',
+    'login' => 'auth/login',
+    'logout' => 'auth/logOut',
 
-    //Aдмин панель
+
+    // ПАНЕЛЬ АДМИНИСТРАТОРА
     'admin' => 'admin/index',
-    // Aдмин панель управления пользователями
+    // === Aдмин панель управления пользователями
     'admin/user/page-([0-9]+)' => 'adminUser/index/$1',
     'admin/user' => 'adminUser/index',
     'admin/user/create' => 'adminUser/create',
     'admin/user/update/([0-9]+)' => 'adminUser/update/$1',
     'admin/user/delete/([0-9]+)' => 'adminUser/delete/$1',
-    // Админ панель управления комментариями
+    // === Админ панель управления комментариями
     'admin/comment' => 'adminComment/index',
     'admin/comment/statusChange/([0-9]+)' => 'adminComment/statusChange/$1',
     'admin/comment/delete/([0-9]+)' => 'adminComment/delete/$1',
-    // Aдмин панель управления постами блога
+    // === Aдмин панель управления постами блога
     'admin/blog' => 'adminBlog/index',
     'admin/blog/delete/([0-9]+)' => 'adminBlog/delete/$1',
     'admin/blog/create' => 'adminBlog/create',
     'admin/blog/update/([0-9]+)' => 'adminBlog/update/$1',
-    // Админ панель управления постами портфолио
+    // === Админ панель управления постами портфолио
     'admin/portfolio' => 'adminPortfolio/index',
     'admin/portfolio/create' => 'adminPortfolio/create',
     'admin/portfolio/delete/([0-9]+)' => 'adminPortfolio/delete/$1',
     'admin/portfolio/update/([0-9]+)' => 'adminPortfolio/update/$1',
-    // Aдмин панель управления категориями постов
+    // === Aдмин панель управления категориями постов
     'admin/category' => 'adminCategory/index',
     'admin/category/create' => 'adminCategory/create',
     'admin/category/delete/([0-9]+)' => 'adminCategory/delete/$1',

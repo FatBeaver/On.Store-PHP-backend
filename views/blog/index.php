@@ -76,7 +76,7 @@
                                             <li><a href="#"><?= $post['first_name'] . ' ' . $post['last_name'] ?><i class="lnr lnr-user"></i></a></li>
                                             <li><a href="#"><?= $post['date'] ?><i class="lnr lnr-calendar-full"></i></a></li>
                                             <li><a href="#"><?= $post['viewed'] ?><i class="lnr lnr-eye"></i></a></li>
-                                            <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                            <li><a href="#"><?= $post['comments'] ?> Comments<i class="lnr lnr-bubble"></i></a></li>
                                         </ul>
                                     </div>
                                </div>

@@ -157,16 +157,16 @@ class Blog
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
-        
         $post = $result->fetch();
+
         $categories = Blog::getCategoriesForBlogPost($id);
+        $comments = Blog::getCommentsForBlogPost($id);
         
         $sql = "SELECT first_name, last_name FROM user WHERE id = :id";
         $result = $db->prepare($sql);
         $result->bindParam(':id', $post['user_id'], PDO::PARAM_STR);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
-
         $post['name'] = $result->fetch(0); 
 
         $postData = [
@@ -177,6 +177,47 @@ class Blog
         return $postData;
     }
 
+    public static function getAdjoiningPosts($id)
+    {
+        $db = Db::getConnection();
+        $sql = "(SELECT id, title FROM blog_post WHERE id > :id LIMIT 1) 
+                UNION 
+                (SELECT id, title FROM blog_post WHERE id < :id LIMIT 1 ) 
+                ORDER BY id ASC";
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        for ($i = 0; $row = $result->fetch(); $i++)
+        {
+            $posts[$i]['id'] = $row['id'];
+            $posts[$i]['title'] = $row['title'];
+        }
+        return $posts;
+    }
+
+    public static function getCommentsForBlogPost($id)
+    {
+        $db = Db::getConnection();
+        $sql = "SELECT * FROM comment WHERE blog_id = :id";
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        $comments = null;
+        for($i = 0; $row = $result->fetch(); $i++)
+        {
+            $comments[$i]['id'] = $row['id'];
+            $comments[$i]['text'] = $row['text'];
+            $comments[$i]['date'] = $row['date'];
+            $comments[$i]['first_name'] = $row['first_name'];
+            $comments[$i]['last_name'] = $row['last_name'];      
+        }
+      
+        return $comments;
+    }
     /**
      * Изменяет данные поста в таблице blog_post и в таблице blog_to_category
      * 
@@ -292,8 +333,8 @@ class Blog
             $blogPosts[$i]['last_name'] = $row['last_name'];
             $blogPosts[$i]['user_id'] = $row['user_id'];
             $blogPosts[$i]['category'] = Blog::getCategoriesForBlogPost($row['id']);
+            $blogPosts[$i]['comments'] = count(Blog::getCommentsForBlogPost($row['id']));
         }
-
         return $blogPosts;
     }
 
@@ -439,4 +480,18 @@ class Blog
     
         return $result->fetch();
     }
+
+
+    public static function addViewedForBlogPost($id)
+    {
+        $db = Db::getConnection();
+        $sql = "UPDATE blog_post 
+                SET viewed = viewed + 1 
+                WHERE id = :id";
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+    }
+
 }

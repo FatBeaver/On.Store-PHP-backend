@@ -3,7 +3,7 @@
 class SiteController 
 {
     public function actionIndex()
-    {
+    {   
         $mixService = Services::getServices();
         $mixService['AllService'] = array_chunk($mixService['AllService'], 2);
         $portfolioPosts = Portfolio::getPortfolioPostsForHomePage();

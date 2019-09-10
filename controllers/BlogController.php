@@ -23,7 +23,24 @@ class BlogController
 
     public function actionView($id)
     {
+        Blog::addViewedForBlogPost($id);
+       
         $post = Blog::getOneBlogPostById($id);
+        $posts = Blog::adminGetAllBlogPosts();
+
+        foreach ($posts as  $key => $p)
+        {
+            if ($p['id'] == $id) 
+            {
+                $navPost[] = $posts[$key - 1];
+                $navPost[] = $posts[$key + 1];
+            }
+        }
+        unset($posts);
+        
+        $comments = Blog::getCommentsForBlogPost($id);
+        $countComments = count($comments);
+        
         $popularPosts = Blog::getPopularPosts();
         $categoryCountPosts = Blog::getCategoriesWithCountPosts();
 
@@ -52,7 +69,19 @@ class BlogController
     }
 
 
-    public static function actionSearch($page = 1)
+    public function actionAddComment($id)
+    {   
+        $comment = $_POST['message'];
+        $first_name = $_SESSION['first_name'];
+        $last_name = $_SESSION['last_name'];
+        $blog_id = $id;
+        
+        Comment::addCommentToBlogPost($comment, $first_name, $last_name, $blog_id);
+        header("Location: /blogpost/views/$id/");
+        return true;
+    }
+
+    public function actionSearch($page = 1)
     {
         if (empty($_POST['query'])) {
             header('Location: /blogpost/');

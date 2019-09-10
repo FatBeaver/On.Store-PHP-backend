@@ -1,9 +1,10 @@
 <?php 
 
-class AdminPortfolioController
+class AdminPortfolioController extends AdminBase
 {
     public function actionIndex()
-    {
+    {   
+        self::checkAdmin();
         $posts = Portfolio::adminGetAllPortfolioPost();
 
         require_once ROOT . '/views/admin/portfolio/index.php';
@@ -11,7 +12,8 @@ class AdminPortfolioController
     }
 
     public function actionCreate()
-    {
+    {   
+        self::checkAdmin();
         $categories = Blog::getAllCategories();
         if (isset($_POST['submit']))
         {
@@ -34,7 +36,8 @@ class AdminPortfolioController
     }
 
     public function actionUpdate($id)
-    {
+    {   
+        self::checkAdmin();
         $post = Portfolio::getOnePortfolioPostById($id);
         $categories = Blog::getAllCategories();
             
@@ -60,14 +63,14 @@ class AdminPortfolioController
     }
 
     public function actionDelete($id)
-    {
+    {   
+        self::checkAdmin();
         if (isset($_POST['submit'])) 
         {
             Portfolio::adminDeletePortfolioPostById($id);
             
             header('Location: /admin/portfolio/');
         }
-
 
         require_once ROOT . '/views/admin/portfolio/delete.php';
         return true;
